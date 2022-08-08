@@ -47,5 +47,6 @@ Box :
       accordingly).
 
 
-I appologize in advance for the look of my game : I had lost the archive with the sample 
-images and I couldn't contact you.
+The file 'sokoban-gui.jar'contains the SokobanGUI class (used in Sokoban.java). It is in charge of 
+displaying the game. The functions will be detailled in a future update of the README file (as its
+functioning was detailed in the subject).
