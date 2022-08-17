@@ -32,7 +32,7 @@ public class Box extends Item{
 	public void moove(int command, String[][] map, Box[] boxList) {
 		this.oldX=x;
 		this.oldY=y;
-		if (!this.onPlate) {	/*If we aren't yet on an activation cell*/
+		this.onPlate=false;
 		if (command == SokobanGUI.UP) {
 			if (!Objects.equals((map[this.x][this.y-1]),"W")){	/*We check for walls*/
 				for (int i=0;i<boxList.length;i++) {	/*And then if a box is standing there*/
@@ -74,7 +74,7 @@ public class Box extends Item{
 			}
 		}
 		
-	}
+	
 	}
 	
 	

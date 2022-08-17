@@ -64,6 +64,7 @@ public class Sokoban extends SokobanGUI{
 		int playerType = Window.loadImage("player.png");
 		int boxType = Window.loadImage("box.png");
 		int cellType = Window.loadImage("cell.png");
+		int boxActivatedType = Window.loadImage("box_on_plate.png");
 		
 		/*By activation-cell we point to the cells where the boxes are supposed to go*/
 		int activationType = Window.loadImage("activation-cell.png");
@@ -78,8 +79,10 @@ public class Sokoban extends SokobanGUI{
 		
 		while(mapIndex<3) {/*As long as we their are levels to be played*/
 			Player.moove(Window.getEvent(), currentMap, boxList);
-			checkPlace(Player, Window,currentMap, boxList,wallType, playerType, boxType, cellType, activationType);
-			System.out.println(Integer.toString(getScore(boxList))+"/"+Integer.toString(boxList.length));
+			checkPlace(Player, Window,currentMap, boxList,wallType, playerType, boxType, cellType, activationType, boxActivatedType);
+			System.out.println(boxList[0].onPlate);
+			System.out.println(boxList[1].onPlate);
+			System.out.println("");
 			Window.show();
 		
 		if (getScore(boxList)==boxList.length) {/*If the level is completed*/
@@ -106,12 +109,23 @@ public class Sokoban extends SokobanGUI{
 		
 	}
 	/*This function is in charge of the display of the different objects*/
-	public static void checkPlace(Item Player,SokobanGUI Window, String[][] map, Box[] boxList, int wType, int pType, int bType, int cType,int aType) throws SokobanError {
+	public static void checkPlace(Item Player,SokobanGUI Window, String[][] map, Box[] boxList, int wType, int pType, int bType, int cType,int aType, int boxActivatedType) throws SokobanError {
 		for (int k=0;k<boxList.length;k++) {/*We make sure each box is correctly displayed*/
 			if (boxList[k].oldX!=boxList[k].x | boxList[k].oldY!=boxList[k].y) {
-				Window.setCell(boxList[k].oldX, boxList[k].oldY, cType);
 				Window.setCell(boxList[k].x, boxList[k].y, bType);
 				
+				if(Objects.equals(map[boxList[k].oldX][boxList[k].oldY],"1")) {
+					Window.setCell(boxList[k].oldX, boxList[k].oldY, aType);
+				}
+				else {
+
+					Window.setCell(boxList[k].oldX, boxList[k].oldY, cType);
+				}
+				
+				
+			}
+			if (boxList[k].onPlate) {
+				Window.setCell(boxList[k].x, boxList[k].y, boxActivatedType);
 			}
 		}
 		if (Player.oldX!= Player.x|Player.oldY!=Player.y) {/* if the player has moved*/
